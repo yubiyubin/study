@@ -18,44 +18,55 @@ const { SubnetService } = require("./SubnetService");
 class SubnetController {
   constructor() {
     this.networkClass = undefined;
-    this.IpAdress = undefined;
+    this.decimalIpAddress = undefined;
     this.subnetBitsCount = undefined;
     this.subnetService = new SubnetService();
+    this.subnetMask = undefined;
 
     this.rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
     });
   }
-  run() {
-    this.setUp();
+  async run() {
+    await this.setUp();
+
+    this.subnetService.convertIpAddressToBinary();
+    this.subnetService.calculateSubnetInfo();
+    this.subnetService.printSubnetInfo();
   }
 
   setUp() {
-    this.rl.setPrompt("A/B/C 중 네트워크 클래스를 선택하세요! > ");
-    this.rl.prompt();
+    return new Promise((resolve) => {
+      this.rl.setPrompt("A/B/C 중 네트워크 클래스를 선택하세요! > ");
+      this.rl.prompt();
 
-    this.rl.on("line", (input) => {
-      //클래스 입력 안한 경우
-      if (!this.networkClass) {
-        this.#setUpClass(input);
-        return;
-      }
+      this.rl.on("line", (input) => {
+        //클래스 입력 안한 경우
+        if (!this.networkClass) {
+          this.#setUpClass(input);
+          return;
+        }
 
-      //IP주소 입력 안한 경우
-      if (!this.IpAdress) {
-        this.#setUpIpAddress(input);
-        return;
-      }
-      //서브넷 개수 입력 안 한 경우
-      this.#setUpSubnetCount(input);
-      //TODO : 서브넷 마스크 구하기
+        //IP주소 입력 안한 경우
+        if (!this.decimalIpAddress) {
+          this.#setUpIpAddress(input);
+          return;
+        }
+
+        //서브넷 개수 입력 안 한 경우
+        this.#setUpSubnetBitsCount(input);
+      });
+
+      this.rl.on("close", () => {
+        console.log(
+          `${this.decimalIpAddress} 주소와 ${this.networkClass} 클래스, 서브넷 마스크 ${this.subnetMask}를 선택하셨습니다.`
+        );
+        if (this.subnetBitsCount) {
+          resolve();
+        }
+      });
     });
-    this.rl.on("close", () =>
-      console.log(
-        `${this.IpAdress} 주소와 ${this.networkClass} 클래스, 서브넷 마스크 ${this.subnetBitsCount}를 선택하셨습니다.`
-      )
-    );
   }
 
   #setUpClass(input) {
@@ -68,33 +79,35 @@ class SubnetController {
       this.rl.prompt();
       return;
     }
+
     //class를 제대로 입력한 경우
     this.networkClass = networkClass;
     this.subnetService.networkClass = this.networkClass;
 
-    const recommendedIpAdress = this.subnetService.recommendIpAddressByClass();
+    const recommendedIpAddress = this.subnetService.recommendIpAddressByClass();
     console.log(
-      `<${this.networkClass}> 클래스를 선택했습니다. 추천하는 IP 주소는 ${recommendedIpAdress}입니다.`
+      `<${this.networkClass}> 클래스를 선택했습니다. 추천하는 IP 주소는 ${recommendedIpAddress}입니다.`
     );
     this.rl.setPrompt("사용할 IP주소를 입력하세요! > ");
     this.rl.prompt();
   }
 
   #setUpIpAddress(input) {
-    this.IpAdress = input;
-    this.subnetService.IpAdress = this.IpAdress;
+    this.decimalIpAddress = input;
+    this.subnetService.decimalIpAddress = this.decimalIpAddress;
+
     this.rl.setPrompt(
-      `${this.IpAdress} 주소에서 사용할 서브넷 비트를 입력하세요! > `
+      `${this.decimalIpAddress} 주소에서 사용할 서브넷 비트를 입력하세요! > `
     );
     this.rl.prompt();
   }
 
-  #setUpSubnetCount(input) {
+  #setUpSubnetBitsCount(input) {
     this.subnetBitsCount = Number(input);
     this.subnetService.subnetBitsCount = this.subnetBitsCount;
+    this.subnetMask = this.subnetService.getSubnetMask();
     this.rl.close();
   }
 }
 
-const a = new SubnetController();
-a.run();
+module.exports = { SubnetController };
