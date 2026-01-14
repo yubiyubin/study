@@ -1,23 +1,96 @@
+const { areURLsEqual } = require("./compare_URLs");
+
 class URL {
-  constructor([
-    absoluteStr,
-    scheme,
-    user,
-    password,
-    host,
-    port,
-    pathComponenets,
-    query,
-  ]) {
-    this.absoluteStr = absoluteStr;
-    this.scheme = scheme;
-    this.user = user;
-    this.password = password;
-    this.host = host;
-    this.port = port;
-    this._pathComponenets = pathComponenets;
-    //this.lastPathComponent = lastPathComponent;
-    this.query = query;
+  #pathComponents;
+  constructor() {
+    this.absoluteStr = "";
+    this.scheme = "";
+    this.user = "";
+    this.password = "";
+    this.host = "";
+    this.port = "";
+    this.#pathComponents = ["/"];
+    this.lastPathComponent = "";
+    this.query = "";
+  }
+  isEqual(urlStr) {
+    return true;
+    // areURLsEqual(this.absoluteStr, urlStr);
+  }
+
+  setPathComponents(components) {
+    if (components) {
+      components.split("/").forEach((v) => this.#pathComponents.push(v));
+      this.#updateLastPathComponent();
+      return;
+    }
+    this.#pathComponents = [];
+  }
+
+  get pathComponents() {
+    return this.#pathComponents;
+  }
+
+  appendPathComponent(pathStr) {
+    //pathComponents 배열에 append
+    this.#pathComponents.push(pathStr);
+    this.#updateLastPathComponent();
+
+    //absoluteStr update
+    this.#updateAbsoluteStr();
+    this.printInfo();
+  }
+
+  deleteLastPathComponent() {
+    //pathComponents 마지막 항 pop
+    this.#pathComponents.pop();
+    this.#updateLastPathComponent();
+
+    //absoluteStr update
+    this.#updateAbsoluteStr();
+    this.printInfo();
+  }
+
+  printInfo() {
+    console.log(
+      `href: ${this.absoluteStr}
+scheme: ${this.scheme}
+user: ${this.user}
+password: ${this.password}
+host: ${this.host}
+port: ${this.port}
+pathComponents: ${this.#pathComponents}
+query: ${this.query}
+`
+    );
+  }
+
+  #updateLastPathComponent() {
+    this.lastPathComponent = this.#pathComponents.at(-1);
+  }
+
+  #updateAbsoluteStr() {
+    this.absoluteStr = this.scheme + "://";
+    if (this.user) {
+      this.absoluteStr += this.user;
+      if (this.password) {
+        this.absoluteStr += ":" + this.password;
+      }
+      this.absoluteStr += "@";
+    }
+
+    this.absoluteStr += this.host;
+    if (this.port) {
+      this.absoluteStr += ":" + this.port;
+    }
+    if (this.#pathComponents.length > 1) {
+      this.#pathComponents.forEach(
+        (component) => (this.absoluteStr += component)
+      );
+    }
+    if (this.query) {
+      this.absoluteStr += "?" + this.query;
+    }
   }
 }
 
