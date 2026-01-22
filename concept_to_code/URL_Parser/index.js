@@ -28,7 +28,7 @@ url.URL.deleteLastPathComponent();
 var url2 = new UrlService(
   "http://user_name:pass-word@boostcamp.connect-foundation.or.kr:2020/first/second/last?query=cd&param=12"
 );
-
+// shared
 var zumurl = new UrlService("http://admin@zum.com/#!/home?query=zum");
 
 var naverurl = new UrlService("http://m.naver.com");

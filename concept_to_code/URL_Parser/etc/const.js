@@ -14,3 +14,6 @@ const URL_PARSING_REGEXS = {
 module.exports = { URL_CHARSET_REGEX, URL_PARSING_REGEXS };
 
 //  /([a-zA-Z]+)\:\/\/([A-Za-z0-9$-_.+!*'\(\),\/?#@]+):([A-Za-z0-9$-_.+!*'\(\),:\/?#]+)@([A-Za-z0-9$-_.+!*'\(\),\/?#@]+):([\d]+)\/([A-Za-z0-9$-_.+!*'\(\),:\/#@]+)\?(.+)/;
+
+// consts/reg.js
+// consts/errorMessages.js

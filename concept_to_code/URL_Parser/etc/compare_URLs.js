@@ -26,6 +26,7 @@ const areURLsEqual = (url1, url2) => {
     }
     return "scheme만 동일한 URL입니다.";
   }
+
   //다른 URL
   return "서로 다른 URL입니다.";
 };
