@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+      function App() {
+        const [count, setCount] = React.useState(0);
+
+        function Counter({ count, setCount }) {
+          function increaseCount() {
+            setCount(count + 1);
+            console.log("clicked!!!");
+          }
+
+          function message() {
+            if (count === 1) {
+              return `Clicked ${count} time`;
+            }
+            return `Clicked ${count} times`;
+          }
+
+          return <button onClick={increaseCount}>{message()}</button>;
+        }
+
+        function Reset() {
+          function resetClicks() {
+            setCount(0);
+          }
+          return <button onClick={resetClicks}>Reset</button>;
+        }
+
+        return (
+          <>
+            <Counter count={count} setCount={setCount} />
+            <Counter count={count} setCount={setCount} />
+            <Reset />
+          </>
+        );
+      }
+
+      const container = document.querySelector(".container");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>
