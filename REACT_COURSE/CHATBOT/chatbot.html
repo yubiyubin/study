@@ -73,6 +73,14 @@
       overflow: scroll;
       scrollbar-width: none;
     }
+
+    .welcomeMessage {
+      text-align: center;
+    }
+    .loadingImg {
+      height: 40px;
+      margin: -15px;
+    }
   </style>
   <body>
     <div class="js-container"></div>
@@ -108,7 +116,9 @@
           setChatMessages([
             ...newChatMessages,
             {
-              message: "Loading...",
+              message: (
+                <img className="loadingImg" src="./loading-spinner.gif" />
+              ),
               sender: "robot",
               id: crypto.randomUUID(),
             },
@@ -182,20 +192,27 @@
         );
       }
 
-      function ChatMessages({ chatMessages }) {
+      function useAutoScroll(dependencies) {
         const chatMessagesRef = React.useRef(null);
+
         React.useEffect(() => {
           const containerElem = chatMessagesRef.current;
 
           if (containerElem) {
             containerElem.scrollTop = containerElem.scrollHeight;
           }
-        }, [chatMessages]);
+        }, dependencies);
+
+        return chatMessagesRef;
+      }
+
+      function ChatMessages({ chatMessages }) {
         //const [chatMessages, setChatMessages] = array;
         // //current data
         // const chatMessages = array[0];
         // //updater function
         // const setChatMessages = array[1];
+        const chatMessagesRef = useAutoScroll([chatMessages]);
 
         return (
           <div ref={chatMessagesRef} className="chat-messages-container">
@@ -221,6 +238,11 @@
         ]);
         return (
           <div className="app-container">
+            <p className="welcomeMessage">
+              {chatMessages.length === 0
+                ? "Welcome to the chatbot project! Send a message using the textbox below!"
+                : ""}
+            </p>
             <ChatMessages chatMessages={chatMessages} />
             <ChatInput
               chatMessages={chatMessages}

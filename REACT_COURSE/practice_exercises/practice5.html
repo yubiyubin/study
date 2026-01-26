@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      .onOffButton {
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 20px 20px;
+        cursor: pointer;
+      }
+      .onButton {
+        background-color: pink;
+      }
+
+      .offButton {
+        background-color: aqua;
+      }
+    </style>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      const OnOffButton = () => {
+        const [isButtonOn, setIsButtonOn] = React.useState(true);
+        const switchOnOff = () => {
+          setIsButtonOn(!isButtonOn);
+        };
+
+        return (
+          <button
+            className={`onOffButton ${isButtonOn ? "onButton" : "offButton"}`}
+            onClick={switchOnOff}
+          >
+            {isButtonOn ? "ON" : "OFF"}
+          </button>
+        );
+      };
+      const container = document.querySelector(".js-container");
+
+      ReactDOM.createRoot(container).render(<OnOffButton />);
+    </script>
+  </body>
+</html>
