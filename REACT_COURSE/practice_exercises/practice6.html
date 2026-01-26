@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        font-size: 30px;
+      }
+      .loginAndSignUp {
+        background-color: plum;
+        margin: 5px 2px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 20px;
+      }
+      .showOrHide {
+        cursor: pointer;
+      }
+    </style>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      const App = () => {
+        const [isShowing, setIsShowing] = React.useState(true);
+        const changeShowOrHide = () => {
+          setIsShowing(!isShowing);
+        };
+
+        return (
+          <>
+            <div>Hello , welcome to YUBIN's website!</div>
+            <div>
+              <input placeholder="Email" />
+            </div>
+            <div>
+              <input
+                placeholder="Password"
+                type={isShowing ? "password" : "text"}
+              />{" "}
+              <button className="showOrHide" onClick={changeShowOrHide}>
+                {!isShowing ? "hide" : "show"}
+              </button>
+            </div>
+            <button className="loginAndSignUp">Login</button>
+            <button className="loginAndSignUp">Sign up</button>
+          </>
+        );
+      };
+
+      const container = document.querySelector(".js-container");
+
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
