@@ -1,8 +1,8 @@
-import { Header } from "../components/header";
+import { Header } from "../../components/header";
 import "./OrdersPage.css";
 import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
-import { formatMoney } from "../utils/money";
+import { formatMoney } from "../../utils/money";
 import dayjs from "dayjs";
 
 export const OrdersPage = ({ cart }) => {

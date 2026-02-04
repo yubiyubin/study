@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router";
 import "./App.css";
-import { HomePage } from "./Pages/HomePage";
-import { CheckoutPage } from "./Pages/checkout/CheckoutPage";
-import { OrdersPage } from "./Pages/OrdersPage";
-import { TrackingPage } from "./Pages/TrackingPage";
-import { Page404 } from "./Pages/Page404";
+import { HomePage } from "./pages/home/HomePage";
+import { CheckoutPage } from "./pages/checkout/CheckoutPage";
+import { OrdersPage } from "./pages/orders/OrdersPage";
+import { TrackingPage } from "./pages/TrackingPage";
+import { Page404 } from "./pages/Page404";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
