@@ -3,10 +3,12 @@ import { NavLink } from "react-router";
 
 export const Header = ({ cart }) => {
   let totalQuantity = 0;
-  console.log(cart);
-  cart.forEach((cartItem) => {
-    totalQuantity += cartItem.quantity;
-  });
+
+  if (cart) {
+    cart.forEach((cartItem) => {
+      totalQuantity += cartItem.quantity;
+    });
+  }
 
   return (
     <div className="header">
