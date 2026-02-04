@@ -1,5 +1,4 @@
 import { OrderHeader } from "./OrderHeader";
-import { Fragment } from "react";
 import { OrderDetailsGrid } from "./OrderDetailsGrid";
 
 export const OrdersGrid = ({ orders }) => {
