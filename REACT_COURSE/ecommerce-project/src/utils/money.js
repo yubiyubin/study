@@ -1,3 +1,4 @@
 export const formatMoney = (amountCents) => {
-  return `$${(amountCents.amountCents / 100).toFixed(2)}`;
+  console.log("aaa", amountCents);
+  return `$${(amountCents / 100).toFixed(2)}`;
 };

@@ -43,7 +43,7 @@ export const HomePage = ({ cart }) => {
                 </div>
 
                 <div className="product-price">
-                  {formatMoney(products.priceCents)}
+                  {formatMoney(product.priceCents)}
                 </div>
 
                 <div className="product-quantity-container">
