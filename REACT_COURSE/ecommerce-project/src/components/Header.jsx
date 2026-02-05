@@ -1,7 +1,18 @@
+import { useState } from "react";
 import "./header.css";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate, useSearchParams } from "react-router";
 
 export const Header = ({ cart }) => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const searchText = searchParams.get("search");
+
+  const [search, setSearch] = useState(searchText || "");
+
+  const handleSearchClick = () => {
+    navigate(`/?search=${search}`);
+  };
+
   let totalQuantity = 0;
 
   if (cart) {
@@ -20,9 +31,16 @@ export const Header = ({ cart }) => {
       </div>
 
       <div className="middle-section">
-        <input className="search-bar" type="text" placeholder="Search" />
+        <input
+          className="search-bar"
+          type="text"
+          placeholder="Search"
+          onChange={(event) => {
+            setSearch(event.target.value);
+          }}
+        />
 
-        <button className="search-button">
+        <button className="search-button" onClick={handleSearchClick}>
           <img className="search-icon" src="images/icons/search-icon.png" />
         </button>
       </div>
