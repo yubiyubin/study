@@ -15,7 +15,7 @@ export const OrderSummary = ({ loadCart, cart, deliveryOptions }) => {
               />
 
               <div className="cart-item-details-grid">
-                <CartItemDetails cartItem={cartItem} />
+                <CartItemDetails cartItem={cartItem} loadCart={loadCart} />
 
                 <DeliveryOptions
                   loadCart={loadCart}
