@@ -2,7 +2,15 @@ import { useState } from "react";
 import "./header.css";
 import { NavLink, useNavigate, useSearchParams } from "react-router";
 
-export const Header = ({ cart }) => {
+type HeaderProps = {
+  cart: {
+    productId: string;
+    quantity: number;
+    deliveryOptionId: string;
+  }[];
+};
+
+export const Header = ({ cart }: HeaderProps) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const searchText = searchParams.get("search");
