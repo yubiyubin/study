@@ -1,4 +1,4 @@
-import { Header } from "../../components/header";
+import { Header } from "../../../../ecommerce-project-ts/src/components/header";
 import "./OrdersPage.css";
 import axios from "axios";
 import { useState, useEffect, Fragment } from "react";

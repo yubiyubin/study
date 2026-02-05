@@ -1,4 +1,4 @@
-import { Header } from "../../components/header";
+import { Header } from "../../../../ecommerce-project-ts/src/components/header";
 import "./HomePage.css";
 import { ProductsGrid } from "./ProductsGrid";
 import axios from "axios";
