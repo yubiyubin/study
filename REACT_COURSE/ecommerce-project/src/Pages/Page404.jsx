@@ -1,4 +1,4 @@
-import { Header } from "../components/header";
+import { Header } from "../../../ecommerce-project-ts/src/components/header";
 import "./Page404.css";
 
 export const Page404 = ({ cart }) => {

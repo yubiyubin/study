@@ -1,10 +1,10 @@
-import { Header } from "../../components/header";
+import { Header } from "../../../../ecommerce-project-ts/src/components/header";
 import "./OrdersPage.css";
 import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
 import { OrdersGrid } from "./OrdersGrid";
 
-export const OrdersPage = ({ cart }) => {
+export const OrdersPage = ({ cart, loadCart }) => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const fetchOrdersData = async () => {
@@ -23,7 +23,7 @@ export const OrdersPage = ({ cart }) => {
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
 
-        <OrdersGrid orders={orders} />
+        <OrdersGrid orders={orders} loadCart={loadCart} />
       </div>
     </>
   );

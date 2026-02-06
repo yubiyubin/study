@@ -1,4 +1,4 @@
-import { Header } from "../components/header";
+import { Header } from "../../../ecommerce-project-ts/src/components/header";
 import "./TrackingPage.css";
 import { Link, useParams } from "react-router";
 import axios from "axios";
